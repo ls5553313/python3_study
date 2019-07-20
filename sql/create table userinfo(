@@ -1,0 +1,23 @@
+create table userinfo(
+username char,
+password char,
+UID int,
+GID int,
+userdesc varchar(30),
+master_catalogue varchar(100),
+login_permission varchar(50));
+
+load data infile "/var/lib/mysql-files/passwd"
+into table userinfo
+fields terminated by ":"
+lines terminated by "\n";
+
+
+alter table userinfo modify ID auto_increment;
+alter table userinfo add primary key(ID);
+alter table userinfo modify ID int(3) after zerofill auto_increment;
+
+select user_id,count(comment_id) from comment
+group by user_id
+order by count(comment_id) desc
+limit 10;
